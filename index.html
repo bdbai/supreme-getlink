@@ -30,14 +30,14 @@
           var linkEl = document.createElement('a');
           var linkUrl = result.data.playurl;
           linkEl.href = linkUrl;
-          linkEl.text = linkUrl;
+          linkEl.innerText = linkUrl;
           outputCon.appendChild(linkEl);
       }
 
       qqBtn.addEventListener('click', function(e) {
           e.preventDefault();
           var inputUrl = inputTxt.value;
-          var sidReg = /s=(.*)(&|$)/;
+          var sidReg = /s=(.*?)(&|$)/;
           var shareId = inputUrl.match(sidReg)[1];
           jsonp('http://cgi.kg.qq.com/fcgi-bin/kg_ugc_getdetail?callback=qqkgCallback&inCharset=utf-8&outCharset=utf-8&v=2&shareid=' + shareId);
       });
