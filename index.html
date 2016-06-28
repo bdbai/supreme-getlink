@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Get download link from an url</title>
+  </head>
+  <body>
+    <h1>Enter the url below and get a download link.</h1>
+    <input type="text" id="input-link" />
+    <input type="submit" id="qq-btn" value="From QQ K-song" />
+    <hr />
+    <div id="output-con"></div>
+
+    <script type="text/javascript">
+      var inputTxt = document.getElementById('input-link');
+      var outputCon = document.getElementById('output-con');
+      var head = document.getElementsByTagName('head')[0];
+      var qqBtn = document.getElementById('qq-btn');
+
+      function jsonp(url) {
+          var scriptEl = document.createElement('script');
+          scriptEl.src = url;
+          head.appendChild(scriptEl);
+      }
+
+      function qqkgCallback(result) {
+          var linkEl = document.createElement('a');
+          var linkUrl = result.data.playurl;
+          linkEl.href = linkUrl;
+          linkEl.text = linkUrl;
+          outputCon.appendChild(linkEl);
+      }
+
+      qqBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var inputUrl = inputTxt.value;
+          var shareId = inputUrl.substring(30);
+          jsonp('http://cgi.kg.qq.com/fcgi-bin/kg_ugc_getdetail?callback=qqkgCallback&inCharset=utf-8&outCharset=utf-8&v=2&shareid=' + shareId);
+      });
+     </script>
+  </body>
+</html>
