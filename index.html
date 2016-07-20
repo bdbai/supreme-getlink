@@ -7,6 +7,8 @@
   </head>
   <body>
     <h1>Enter the url below and get a download link.</h1>
+    <input type="submit" id="mojicola-btn" value="Get a free Sprite!" />
+    <br />
     <input type="text" id="input-link" />
     <input type="submit" id="qq-btn" value="From QQ K-song" />
     <hr />
@@ -19,6 +21,7 @@
       var outputCon = document.getElementById('output-con');
       var head = document.getElementsByTagName('head')[0];
       var qqBtn = document.getElementById('qq-btn');
+      var mojiColaBtn = document.getElementById('mojicola-btn');
 
       function jsonp(url) {
           var scriptEl = document.createElement('script');
@@ -33,6 +36,15 @@
           linkEl.innerText = linkUrl;
           outputCon.appendChild(linkEl);
       }
+      function mojiColaCallback(result) {
+          var resultEl = document.createElement('p');
+          if (result.code !== 0) {
+              alert(result.msg);
+              return;
+          }
+          resultEl.innerText = 'Your promotion code: ' + result.data.activity;
+          outputCon.appendChild(resultEl);
+      }
 
       qqBtn.addEventListener('click', function(e) {
           e.preventDefault();
@@ -40,6 +52,10 @@
           var sidReg = /s=(.*?)(&|$)/;
           var shareId = inputUrl.match(sidReg)[1];
           jsonp('http://cgi.kg.qq.com/fcgi-bin/kg_ugc_getdetail?callback=qqkgCallback&inCharset=utf-8&outCharset=utf-8&v=2&shareid=' + shareId);
+      });
+      mojiColaBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          jsonp('http://co.moji.com/api/cola/raffle?activityid=MC2016062101&callback=mojiColaCallback');
       });
      </script>
   </body>
