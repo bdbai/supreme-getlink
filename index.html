@@ -42,7 +42,7 @@
               alert(result.msg);
               return;
           }
-          resultEl.innerText = 'Your promotion code: ' + result.data.activity;
+          resultEl.innerText = result.textContent = 'Your promotion code: ' + result.data.activity;
           outputCon.appendChild(resultEl);
       }
 
