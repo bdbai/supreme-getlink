@@ -41,7 +41,9 @@
           if (result.code !== 0) {
               alert(result.msg);
               return;
-          }
+          }          
+          resultEl.text = result.data.activity;
+          alert(result.data.activity);
           resultEl.innerText = result.textContent = 'Your promotion code: ' + result.data.activity;
           outputCon.appendChild(resultEl);
       }
