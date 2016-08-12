@@ -53,7 +53,7 @@
           var inputUrl = inputTxt.value;
           var sidReg = /s=(.*?)(&|$)/;
           var shareId = inputUrl.match(sidReg)[1];
-          jsonp('http://cgi.kg.qq.com/fcgi-bin/kg_ugc_getdetail?callback=qqkgCallback&inCharset=utf-8&outCharset=utf-8&v=2&shareid=' + shareId);
+          jsonp('http://cgi.kg.qq.com/fcgi-bin/kg_ugc_getdetail?callback=qqkgCallback&inCharset=utf-8&outCharset=utf-8&v=3&shareid=' + shareId);
       });
       mojiColaBtn.addEventListener('click', function(e) {
           e.preventDefault();
