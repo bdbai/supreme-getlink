@@ -3,14 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Get download link from an url</title>
+    <title>Get what you need!</title>
   </head>
   <body>
-    <h1>Enter the url below and get a download link.</h1>
-    <input type="submit" id="mojicola-btn" value="Get a free Sprite!" />
-    <br />
-    <input type="text" id="input-link" />
-    <input type="submit" id="qq-btn" value="From QQ K-song" />
+    <h1>Enter the arguments below and get what you need!</h1>
+    <p>
+      <input type="submit" id="mojicola-btn" value="Get a free Sprite!" />
+    </p>
+    <p>
+      <input type="text" id="input-link" />
+    </p>
+    <p>
+      <input type="submit" id="qqkg-btn" value="Get song url from QQ K-song share link" />
+      <br />
+      <input type="submit" id="qqhead-btn" value="Get QQ head from QQ number" />
+    </p>
     <hr />
     <div id="output-con"></div>
 
@@ -20,8 +27,9 @@
       var inputTxt = document.getElementById('input-link');
       var outputCon = document.getElementById('output-con');
       var head = document.getElementsByTagName('head')[0];
-      var qqBtn = document.getElementById('qq-btn');
+      var qqKgBtn = document.getElementById('qqkg-btn');
       var mojiColaBtn = document.getElementById('mojicola-btn');
+      var qqheadBtn = document.getElementById('qqhead-btn');
 
       function jsonp(url) {
           var scriptEl = document.createElement('script');
@@ -41,14 +49,14 @@
           if (result.code !== 0) {
               alert(result.msg);
               return;
-          }          
+          }
           resultEl.text = result.data.activity;
           alert(result.data.activity);
           resultEl.innerText = result.textContent = 'Your promotion code: ' + result.data.activity;
           outputCon.appendChild(resultEl);
       }
 
-      qqBtn.addEventListener('click', function(e) {
+      qqKgBtn.addEventListener('click', function(e) {
           e.preventDefault();
           var inputUrl = inputTxt.value;
           var sidReg = /s=(.*?)(&|$)/;
@@ -58,6 +66,14 @@
       mojiColaBtn.addEventListener('click', function(e) {
           e.preventDefault();
           jsonp('http://co.moji.com/api/cola/raffle?activityid=MC2016062101&callback=mojiColaCallback');
+      });
+      qqheadBtn.addEventListener('click', function(e) {
+          var resultEl = document.createElement('p');
+          var imageEl = document.createElement('img');
+          var input = inputTxt.value;
+          imageEl.src = 'http://qlogo1.store.qq.com/qzone/' + input + '/' + input + '/100';
+          resultEl.appendChild(imageEl);
+          outputCon.appendChild(resultEl);
       });
      </script>
   </body>
